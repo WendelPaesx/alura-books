@@ -12,7 +12,7 @@ async function getBuscarLivrosDaAPI(){
     
 
 }
-
+// MetodoForEach
 function exibirOsLivrosNaTela(listaDeLivros){
     listaDeLivros.forEach(livro => {
         elementoParaInserirLivros.innerHTML +=`
@@ -22,11 +22,34 @@ function exibirOsLivrosNaTela(listaDeLivros){
           ${livro.titulo}
         </h2>
         <p class="livro__descricao">${livro.autor}</p>
-        <p class="livro__preco" id="preco">R$${livro.preco}</p>
+        <p class="livro__preco" id="preco">R$${livro.preco.toFixed(2)}</p>
         <div class="tags">
           <span class="tag">${livro.categoria}</span>
         </div>
       </div>`
     })
 }
+
+//MetodoMap
+function aplicarDesconto(livros) {
+    const desconto = 0.3
+    livrosComDesconto = livros.map(livro => {
+        return { ...livro, preco: livro.preco - (livro.preco * desconto) }
+
+    })
+    return livrosComDesconto
+
+
+
+}
+
+// metodo filter
+const btnFiltrarLivrosDeFront = document.getElementById('btnFiltrarLivrosDeFront')
+btnFiltrarLivrosDeFront.addEventListener('click', filtrarLivrosDeFront)
+
+function filtrarLivrosDeFront(){
+    let livrosFiltrados = livros.filter(livro => livro.categoria =='front-end')
+    console.table(livrosFiltrados)
+}
+
 
