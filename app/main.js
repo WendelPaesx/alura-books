@@ -7,13 +7,11 @@ const elementoParaInserirLivros = document.getElementById('livros')
 async function getBuscarLivrosDaAPI(){
     const res = await fetch(endPointDaAPI)
     livros = await res.json()
-    console.table(livros)
-    exibirOsLivrosNaTela(livros)
+    let livrosComDesconto = aplicarDesconto(livros)
+    exibirOsLivrosNaTela(livrosComDesconto)
     
 
 }
-
-
 
 function exibirOsLivrosNaTela(listaDeLivros){
     listaDeLivros.forEach(livro => {
@@ -31,3 +29,4 @@ function exibirOsLivrosNaTela(listaDeLivros){
       </div>`
     })
 }
+
