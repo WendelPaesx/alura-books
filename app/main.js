@@ -16,8 +16,8 @@ async function getBuscarLivrosDaAPI() {
 function exibirOsLivrosNaTela(listaDeLivros) {
     elementoParaInserirLivros.innerHTML = ''
     listaDeLivros.forEach(livro => {
-        let disponibilidade = verificarDisponibilidadeDoLivro(livro)
-        elementoParaInserirLivros.innerHTML += `
+        let disponibilidade = livro.quantidade > 0 ? 'livro__imagens': 'livros__imagens indisponivel'
+            elementoParaInserirLivros.innerHTML += `
         <div class="livro">
         <img class="${disponibilidade} "  src="${livro.imagem}" alt="${livro.alt}" />
         <h2 class="livro__titulo">
@@ -31,13 +31,13 @@ function exibirOsLivrosNaTela(listaDeLivros) {
       </div>`
     })
 }
-function verificarDisponibilidadeDoLivro(livro){
-    if(livro.quantidade >0){
-        return 'livro__imagens'
-    }else{
-        return 'livros__imagens indisponivel'
-    }
-}
+// function verificarDisponibilidadeDoLivro(livro) {
+//     if (livro.quantidade > 0) {
+//         return 'livro__imagens'
+//     } else {
+//         return 'livros__imagens indisponivel'
+//     }
+// }
 
 //MetodoMap
 function aplicarDesconto(livros) {
@@ -69,6 +69,16 @@ let btnOrdenarPorPreco = document.getElementById('btnOrdenarPorPreco')
 btnOrdenarPorPreco.addEventListener('click', ordenarLivrosPorPreco)
 function ordenarLivrosPorPreco() {
     let livrosOrdenados = livros.sort((a, b) => a.preco - b.preco)
-        exibirOsLivrosNaTela(livrosOrdenados)
+    exibirOsLivrosNaTela(livrosOrdenados)
 }
+
+// livros disponiveis
+let btnLivrosDisponiveis =document.getElementById('btnLivrosDisponiveis')
+btnLivrosDisponiveis.addEventListener('click'livrosDisponiveis)
+
+function livrosDisponiveis(){
+ let disponiveis = livro.
+    
+}
+console.log(livrosDisponiveis)
 
