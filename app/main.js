@@ -4,18 +4,19 @@ getBuscarLivrosDaAPI()
 const elementoParaInserirLivros = document.getElementById('livros')
 
 
-async function getBuscarLivrosDaAPI(){
+async function getBuscarLivrosDaAPI() {
     const res = await fetch(endPointDaAPI)
     livros = await res.json()
     let livrosComDesconto = aplicarDesconto(livros)
     exibirOsLivrosNaTela(livrosComDesconto)
-    
+
 
 }
 // MetodoForEach
-function exibirOsLivrosNaTela(listaDeLivros){
+function exibirOsLivrosNaTela(listaDeLivros) {
+    elementoParaInserirLivros.innerHTML =''
     listaDeLivros.forEach(livro => {
-        elementoParaInserirLivros.innerHTML +=`
+        elementoParaInserirLivros.innerHTML += `
         <div class="livro">
         <img class="livro__imagens" src="${livro.imagem}" alt="${livro.alt}" />
         <h2 class="livro__titulo">
@@ -44,12 +45,14 @@ function aplicarDesconto(livros) {
 }
 
 // metodo filter
-const btnFiltrarLivrosDeFront = document.getElementById('btnFiltrarLivrosDeFront')
-btnFiltrarLivrosDeFront.addEventListener('click', filtrarLivrosDeFront)
+const botoes = document.querySelectorAll('.btn')
+botoes.forEach(btn => btn.addEventListener('click', filtrarLivros))
 
-function filtrarLivrosDeFront(){
-    let livrosFiltrados = livros.filter(livro => livro.categoria =='front-end')
-    console.table(livrosFiltrados)
+function filtrarLivros() {
+    const elementoBtn =document.getElementById(this.id)
+    const categoria = elementoBtn.value
+    let livrosFiltrados = livros.filter(livro => livro.categoria == categoria)
+    exibirOsLivrosNaTela(livrosFiltrados)
 }
 
 
