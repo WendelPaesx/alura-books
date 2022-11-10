@@ -13,10 +13,13 @@ async function getBuscarLivrosDaAPI() {
 
 }
 // MetodoForEach
+const elementoComValorTotalDeLivrosDisponiveis = document.getElementById('valor_total_livros_disponiveis')
+
 function exibirOsLivrosNaTela(listaDeLivros) {
+    elementoComValorTotalDeLivrosDisponiveis.innerHTML =''
     elementoParaInserirLivros.innerHTML = ''
     listaDeLivros.forEach(livro => {
-        let disponibilidade = livro.quantidade > 0 ? 'livro__imagens': 'livros__imagens indisponivel'
+        let disponibilidade = livro.quantidade > 0 ? livroDisponivel(): livroNaoDisponivel()
             elementoParaInserirLivros.innerHTML += `
         <div class="livro">
         <img class="${disponibilidade} "  src="${livro.imagem}" alt="${livro.alt}" />
@@ -31,6 +34,14 @@ function exibirOsLivrosNaTela(listaDeLivros) {
       </div>`
     })
 }
+function livroDisponivel() {
+    return 'livro__imagens'
+}
+
+function livroNaoDisponivel() {
+    return 'livros__imagens indisponivel'
+}
+
 // function verificarDisponibilidadeDoLivro(livro) {
 //     if (livro.quantidade > 0) {
 //         return 'livro__imagens'
@@ -59,10 +70,27 @@ botoes.forEach(btn => btn.addEventListener('click', filtrarLivros))
 function filtrarLivros() {
     const elementoBtn = document.getElementById(this.id)
     const categoria = elementoBtn.value
-    let livrosFiltrados = categoria == "disponivel" ? livros.filter( livro => livro.quantidade > 0) :livros.filter(livro => livro.categoria == categoria)
+    let livrosFiltrados = categoria == "disponivel" ? filtrarPorDisponibilidade() :filtrarPorCategoria(categoria)
     exibirOsLivrosNaTela(livrosFiltrados)
+    if(categoria == 'disponivel'){
+        exibirValorTotalDosLivrosDisponiveisNaTela()
+    }
+}
+function filtrarPorCategoria(categoria) {
+    return livros.filter(livro => livro.categoria == categoria)
 }
 
+function filtrarPorDisponibilidade() {
+    return livros.filter(livro => livro.quantidade > 0)
+}
+
+function exibirValorTotalDosLivrosDisponiveisNaTela (){
+    elementoComValorTotalDeLivrosDisponiveis.innerHTML= `
+    <div class="livros__disponiveis">
+      <p>Todos os livros disponíveis por R$ <span id="valor">299,00</span></p>
+    </div>`
+
+}
 // metodo sort
 
 let btnOrdenarPorPreco = document.getElementById('btnOrdenarPorPreco')
